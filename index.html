@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole-Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+</head>
+<body>
+
+    <!-- NAVBAR SUPERIOR -->
+    <header class="header-main">
+        <div class="top-nav">
+            <div class="logo"><a href="#" class="nav-link" data-link="inicio">NICOLE-SHOP</a></div>
+            <div class="top-icons">
+                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                <span class="nav-link" data-link="carrito"><i class="fa-solid fa-cart-shopping"></i></span>
+            </div>
+        </div>
+
+        <!-- MINI CARRUSEL (4 imágenes) -->
+<div class="mini-carousel-bg">
+    <div class="carousel-track" id="carouselTrack">
+        <!-- Slide 1 -->
+        <div class="slide-item"><span>✨ ENVÍO GRATIS HOY</span></div>
+        <!-- Slide 2 -->
+        <div class="slide-item"><span>💄 3X2 EN LABIALES</span></div>
+        <!-- Slide 3 -->
+        <div class="slide-item"><span>🧴 NUEVA LÍNEA CREMES</span></div>
+    </div>
+</div>
+</div>
+</div>
+        <!-- navbar de navegacion -->
+<nav class="category-bar">
+    <!-- Lado Izquierdo: Botón Más + Menú Desplegable -->
+    <div class="extra-menu-container">
+        <button id="extraBtn" class="plus-icon">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        
+        <!-- El menú que aparece al hacer clic -->
+        <div id="extraDropdown" class="dropdown-content">
+            <span class="nav-link" data-link="opcion1">Opcion 1</span>
+            <span class="nav-link" data-link="opcion2">Opcion 2</span>
+            <span class="nav-link" data-link="opcion3">Opcion 3</span>
+        </div>
+    </div>
+
+    <!-- Lado Derecho: Secciones principales -->
+    <div class="main-categories">
+        <span class="nav-link" data-link="cremas">CREMES</span>
+        <span class="sep">|</span>
+        <span class="nav-link" data-link="perfumes">PERFUMES</span>
+        <span class="sep">|</span>
+        <span class="nav-link" data-link="maquillaje">MAQUIAGEM</span>
+    </div>
+</nav>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR DE PÁGINAS -->
+    <main id="app"></main>
+
+    <!-- FOOTER GLASSMORFISMO -->
+<footer class="footer-tab">
+    <div class="nav-link" data-link="inicio">
+        <i class="fa-solid fa-house"></i>
+    </div>
+    <div class="nav-link" data-link="favoritos">
+        <i class="fa-solid fa-heart"></i>
+    </div>
+    <div class="nav-link" data-link="whatsapp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </div>
+    <div class="nav-link" data-link="perfil">
+        <i class="fa-solid fa-user"></i>
+    </div>
+</footer>
+
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/f362ae2630.js" crossorigin="anonymous"></script>
+</body>
+</html>

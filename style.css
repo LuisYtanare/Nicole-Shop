@@ -1,0 +1,250 @@
+:root {
+    --pink-light: #fbc2eb;
+    --purple-light: #a18cd1;
+    --accent-pink: #FE889F;
+    --white: #ffffff;
+    --text: #333333;
+}
+
+* {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+     font-family: 'Montserrat', sans-serif
+ }
+
+body { 
+    background: linear-gradient(135deg, var(--pink-light) 0%, var(--purple-light) 100%);
+    min-height: 100vh;
+    padding-top: 185px; /* Espacio para el header fijo */
+    padding-bottom: 100px; /* Espacio para el footer */
+}
+
+/* HEADER FIJO */
+.header-main {
+    position: fixed; top: 0; width: 100%; background: var(--white);
+    z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.top-nav { 
+    display: flex;
+     justify-content: space-between;
+      padding: 15px 20px;
+       align-items: center; }
+.logo {
+     font-weight: 300;
+     border: solid var(--accent-pink) 5px;
+     border-right: none;
+     border-left: none;
+     letter-spacing: 6px;
+     font-size: 1.1rem;
+     line-height: 1;
+    }
+.logo a{
+    text-decoration: none;
+    color: inherit;
+    cursor: po;
+}
+.top-icons {
+     font-size: 1.3rem;
+     display: flex;
+     gap: 20px; 
+     color: var(--accent-pink)
+    }
+
+/* MINI CARRUSEL */
+.mini-carousel-bg {
+    position: fixed;
+    top: 55px;
+    width: 100%;
+    height: 85px;
+    background-color: var(--accent-pink);
+    overflow: hidden;
+    z-index: 999;
+}
+
+.carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out; /* Velocidad del deslizamiento */
+}
+
+.slide-item {
+    min-width: 100%; /* Cada slide ocupa todo el ancho */
+    height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.slide-item span {
+    color: white;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+.c-track {
+     display: flex; gap: 12px; justify-content: center; }
+.c-item { 
+    min-width: 65px; height: 65px; border-radius: 50%; 
+    background-size: cover; border: 2px solid var(--accent-pink); 
+}
+
+/* BARRA CATEGORÍAS */
+.category-bar {
+    position: fixed; 
+    top: 140px; /* Si tu logo y buscador ocupan mucho espacio, ajusta este número */
+    width: 100%; 
+    height: 40px;
+    background: var(--white);
+    display: flex;
+    justify-content: space-between; /* Esto empuja el + a la izquierda y el resto a la derecha */
+    align-items: center;
+    padding: 0 15px;
+    z-index: 1000;
+}
+
+/* Lado Derecho */
+.main-categories {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Estilo mini para los textos */
+.main-categories .nav-link {
+    font-size: 0.65rem; /* Tamaño pequeño aesthetic */
+    color: black;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* El botón de MÁS */
+.plus-icon {
+    background: none;
+    border: none;
+    color: var(--accent-pink);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Contenedor del Menú Desplegable */
+.extra-menu-container {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none; /* Escondido por defecto */
+    position: absolute;
+    top: 45px; /* Justo debajo de la barra */
+    left: 0;
+    background-color: var(--white);
+    min-width: 120px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 2001;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.dropdown-content.show {
+    display: flex;
+}
+
+.dropdown-content .nav-link {
+    color: var(--dark-grey) !important;
+    padding: 12px 16px;
+    font-size: 0.8rem;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdown-content .nav-link:hover {
+    background-color: var(--light-pink);
+}
+
+/* GRID DE PRODUCTOS */
+.product-grid {
+     display: grid;
+      grid-template-columns: 1fr 1fr;
+       gap: 12px; padding: 12px; }
+.card { 
+    background: var(--white); border-radius: 6px; padding: 8px; 
+    text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+.card img { width: 100%; border-radius: 3px; margin-bottom: 8px; }
+.card p { font-size: 0.7rem; font-weight: bold; margin-bottom: 4px; }
+.card .price { color: #5bc0de; font-size: 0.8rem; margin-bottom: 8px; }
+.btn-add { 
+    background: #f1f3f5; border: none; padding: 6px; width: 100%;
+    border-radius: 15px; color: #a18cd1; font-size: 0.6rem; font-weight: bold; cursor: pointer;
+}
+
+/* FOOTER GLASS */
+.footer-tab {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px; /* Un poco más alto para la línea inferior */
+    background-color: #ffffff;
+    
+    /* Bordes redondeados solo arriba (como en tu imagen) */
+    border-radius: 25px 25px 0 0;
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+    z-index: 2000;
+}
+
+.footer-tab .nav-link {
+    font-size: 1.5rem;
+    color: var(--accent-pink); /* Rosa de tu paleta */
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.footer-tab .nav-link:active {
+    transform: scale(0.9);
+}
+
+
+
+/* COLORES ESPECÍFICOS */
+.icon-heart {
+    color: #FF8FA3 !important; /* Rosa suave para el corazón */
+}
+
+.fa-brands.fa-whatsapp {
+    color: #25D366; /* Verde WhatsApp oficial */
+}
+.nav-link { cursor: pointer; transition: 0.2s; }
+.nav-link:active { transform: scale(0.9); }
+.icon-btn { font-size: 1.8rem; }
+.icon-heart { font-size: 1.8rem; color: #ff8fa3; filter: drop-shadow(0 0 5px rgba(255,143,163,0.5)); }
+
+/* ANIMACIÓN */
+#app { animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+#app {
+    transition: opacity 0.3s ease-in-out;
+    padding-top: 20px; /* Para que el H1 no pegue al menú */
+}
+
+/* Animación de entrada */
+.fade-in {
+    animation: fadeInAnim 0.5s forwards;
+}
+
+@keyframes fadeInAnim {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
