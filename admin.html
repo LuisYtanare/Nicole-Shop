@@ -1,44 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Panel | Nicole-Shop</title>
-    <link rel="stylesheet" href="admin-style.css">
-    <link href="https://fonts.googleapis.com" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="admin-style.css" />
+  </head>
+  <body>
     <div class="admin-container">
-        <header>
-            <h1>Registrador de Productos</h1>
-            <a href="index.html" class="btn-back">Ver Tienda</a>
-        </header>
+      <header>
+        <h1>Registrador de Productos</h1>
+        <a href="index.html" class="btn-back">Ver Tienda</a>
+      </header>
 
-        <section class="form-section">
-            <form id="productForm">
-                <input type="text" id="p-nombre" placeholder="Nombre del producto" required>
-                
-                <select id="p-seccion">
-                    <option value="maquillaje">Maquillaje</option>
-                    <option value="perfumes">Perfumes</option>
-                    <option value="cremas">Cremas</option>
-                </select>
+      <section class="form-section">
+        <form id="productForm">
+          <input
+            type="text"
+            id="p-nombre"
+            placeholder="Nombre del producto"
+            required
+          />
 
-                <input type="number" id="p-precio" placeholder="Precio (R$)" step="0.01" required>
-                <input type="text" id="p-imagen" placeholder="URL de la imagen (JPG/PNG)" required>
+          <select id="p-seccion">
+            <option value="maquillaje">Maquillaje</option>
+            <option value="perfumes">Perfumes</option>
+            <option value="cremas">Cremas</option>
+          </select>
 
-                <button type="submit" id="btn-save">REGISTRAR PRODUCTO</button>
-            </form>
-        </section>
+          <input
+            type="number"
+            id="p-precio"
+            placeholder="Precio (R$)"
+            step="0.01"
+            required
+          />
+          <input
+            type="text"
+            id="p-imagen"
+            placeholder="URL de la imagen (JPG/PNG)"
+            required
+          />
 
-        <section class="list-section">
-            <h2>Productos Registrados</h2>
-            <div id="admin-list" class="admin-grid">
-                <!-- Aquí se listan para borrar -->
-            </div>
-        </section>
+          <button type="submit" id="btn-save">REGISTRAR PRODUCTO</button>
+        </form>
+      </section>
+
+      <section class="list-section">
+        <h2>Productos Registrados</h2>
+        <div id="admin-list" class="admin-grid"></div>
+      </section>
     </div>
 
-    <script src="admin-script.js"></script>
-</body>
+    <script type="module" src="./admin-script.js"></script>
+  </body>
 </html>

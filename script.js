@@ -1,5 +1,25 @@
+// 1. IMPORTACIONES DE FIREBASE (URLs completas y con versión)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+// 2. TU CONFIGURACIÓN
+const firebaseConfig = {
+  apiKey: "AIzaSyCMUGhD0kHv6jlmHn8Sl1D11lab4fwsUnk", 
+  authDomain: "nicoli-shop.firebaseapp.com", // Asegúrate de que esto esté bien escrito
+  databaseURL: "https://nicoli-shop-default-rtdb.firebaseio.com", // Generalmente lleva el ID del proyecto
+  projectId: "nicoli-shop",
+  storageBucket: "nicoli-shop.firebasestorage.app",
+  messagingSenderId: "192238185780",
+  appId: "1:192238185780:web:d0cc1761a3061031dc4961"
+};
+
+// Inicializar Firebase
+const fbApp = initializeApp(firebaseConfig);
+const db = getDatabase(fbApp);
+
 const app = document.getElementById('app');
 
+// --- NAVEGACIÓN SPA ---
 async function navigate(page) {
     app.style.opacity = "0"; 
 
@@ -16,8 +36,7 @@ async function navigate(page) {
             app.className = "fade-in";
             localStorage.setItem('lastSection', page);
 
-            // === MEJORA: Inyectar productos del admin automáticamente ===
-            // Solo lo intentamos si la página cargada es una de las categorías
+            // Inyectar productos desde Firebase
             if (['maquillaje', 'perfumes', 'cremas', 'inicio'].includes(page)) {
                 injectAdminProducts(page);
             }
@@ -32,23 +51,35 @@ async function navigate(page) {
     }
 }
 
-// --- LÓGICA DE PRODUCTOS DINÁMICOS ---
+// --- LÓGICA DE PRODUCTOS DINÁMICOS (FIREBASE) ---
 function injectAdminProducts(seccion) {
-    // Buscamos el contenedor donde van los productos en el HTML cargado
     const contenedor = app.querySelector('.product-grid');
     if (!contenedor) return;
 
-    const db = JSON.parse(localStorage.getItem('misProductos')) || [];
-    const filtrados = db.filter(p => p.seccion === seccion);
+    // Referencia a la rama 'productos' en Firebase
+    const productosRef = ref(db, 'productos');
 
-    filtrados.forEach(p => {
-        contenedor.innerHTML += `
-            <div class="card">
-                <img src="${p.imagen}" onerror="this.src='https://via.placeholder.com'">
+    // Escuchar datos en tiempo real
+    onValue(productosRef, (snapshot) => {
+        const data = snapshot.val();
+        if (!data) return;
+
+        // Limpiar productos previos cargados dinámicamente para no duplicar
+        const cardsDinamicas = contenedor.querySelectorAll('.card-firebase');
+        cardsDinamicas.forEach(c => c.remove());
+
+        // Filtrar e inyectar
+        Object.values(data).filter(p => p.seccion === seccion).forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'card card-firebase';
+            card.innerHTML = `
+                <img src="${p.imagen}" onerror="this.src='https://placeholder.com'">
                 <p>${p.nombre.toUpperCase()}</p>
                 <p class="price">R$ ${p.precio}</p>
                 <button class="btn-add">ADICIONAR</button>
-            </div>`;
+            `;
+            contenedor.appendChild(card);
+        });
     });
 }
 
