@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nicole-Shop</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Fuente Montserrat corregida -->
-     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- NAVBAR SUPERIOR Y MENÚS FIJOS -->
     <header class="header-main">
         <div class="top-nav">
             <div class="logo"><a href="#" class="nav-link" data-link="inicio">NICOLE-SHOP</a></div>
@@ -20,7 +19,6 @@
             </div>
         </div>
 
-        <!-- BLOQUE ROSA: CARRUSEL INFINITO (85px) -->
         <div class="mini-carousel-bg">
             <div class="carousel-track" id="carouselTrack">
                 <div class="slide-item"><span>✨ ENVÍO GRATIS HOY</span></div>
@@ -29,9 +27,7 @@
             </div>
         </div>
 
-        <!-- BARRA DE CATEGORÍAS (40px) -->
         <nav class="category-bar">
-            <!-- Izquierda: Botón Plus -->
             <div class="extra-menu-container">
                 <button id="extraBtn" class="plus-icon">
                     <i class="fa-solid fa-plus"></i>
@@ -43,7 +39,6 @@
                 </div>
             </div>
 
-            <!-- Derecha: Categorías principales -->
             <div class="main-categories">
                 <span class="nav-link" data-link="cremas">CREMES</span>
                 <span class="sep">|</span>
@@ -54,10 +49,8 @@
         </nav>
     </header>
 
-    <!-- CONTENEDOR DE PÁGINAS DINÁMICAS -->
     <main id="app"></main>
 
-    <!-- FOOTER TAB BAR -->
     <footer class="footer-tab">
         <div class="nav-link" data-link="inicio"><i class="fa-solid fa-house"></i></div>
         <div class="nav-link" data-link="favoritos"><i class="fa-solid fa-heart"></i></div>
@@ -65,7 +58,6 @@
         <div class="nav-link" data-link="perfil"><i class="fa-solid fa-user"></i></div>
     </footer>
 
-    <!-- SCRIPTS: Importante el type="module" para Firebase -->
     <script src="https://kit.fontawesome.com/f362ae2630.js" crossorigin="anonymous"></script>
     <script type="module" src="./script.js"></script>
 </body>

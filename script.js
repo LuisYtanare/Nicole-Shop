@@ -1,16 +1,16 @@
-// 1. IMPORTACIONES DE FIREBASE (URLs completas y con versión)
+// 1. IMPORTACIONES DE FIREBASE (URLs completas para evitar errores de CORS)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-// 2. TU CONFIGURACIÓN
+// 2. CONFIGURACIÓN DE FIREBASE
 const firebaseConfig = {
-  apiKey: "AIzaSyCMUGhD0kHv6jlmHn8Sl1D11lab4fwsUnk", 
-  authDomain: "nicoli-shop.firebaseapp.com", // Asegúrate de que esto esté bien escrito
-  databaseURL: "https://nicoli-shop-default-rtdb.firebaseio.com", // Generalmente lleva el ID del proyecto
-  projectId: "nicoli-shop",
-  storageBucket: "nicoli-shop.firebasestorage.app",
-  messagingSenderId: "192238185780",
-  appId: "1:192238185780:web:d0cc1761a3061031dc4961"
+    apiKey: "AIzaSyCMUGhD0kHv6jlmHn8Sl1D11lab4fwsUnk", 
+    authDomain: "nicoli-shop.firebaseapp.com",
+    databaseURL: "https://nicoli-shop-default-rtdb.firebaseio.com",
+    projectId: "nicoli-shop",
+    storageBucket: "nicoli-shop.firebasestorage.app",
+    messagingSenderId: "192238185780",
+    appId: "1:192238185780:web:d0cc1761a3061031dc4961"
 };
 
 // Inicializar Firebase
@@ -19,7 +19,7 @@ const db = getDatabase(fbApp);
 
 const app = document.getElementById('app');
 
-// --- NAVEGACIÓN SPA ---
+// --- 3. NAVEGACIÓN SPA (Single Page Application) ---
 async function navigate(page) {
     app.style.opacity = "0"; 
 
@@ -36,54 +36,59 @@ async function navigate(page) {
             app.className = "fade-in";
             localStorage.setItem('lastSection', page);
 
-            // Inyectar productos desde Firebase
-            if (['maquillaje', 'perfumes', 'cremas', 'inicio'].includes(page)) {
+            // Cargar productos de Firebase si estamos en una categoría o inicio
+            const categorias = ['maquillaje', 'perfumes', 'cremas', 'inicio'];
+            if (categorias.includes(page)) {
                 injectAdminProducts(page);
             }
         }, 200);
 
     } catch (err) {
-        app.innerHTML = `<div style="padding:50px; text-align:center;">
-                            <h1>${page.toUpperCase()}</h1>
-                            <p>Contenido en mantenimiento...</p>
-                         </div>`;
+        app.innerHTML = `
+            <div style="padding:50px; text-align:center;">
+                <h1>${page.toUpperCase()}</h1>
+                <p>Contenido en mantenimiento o no encontrado.</p>
+            </div>`;
         app.style.opacity = "1";
     }
 }
 
-// --- LÓGICA DE PRODUCTOS DINÁMICOS (FIREBASE) ---
+// --- 4. LÓGICA DE PRODUCTOS DESDE FIREBASE ---
 function injectAdminProducts(seccion) {
     const contenedor = app.querySelector('.product-grid');
     if (!contenedor) return;
 
-    // Referencia a la rama 'productos' en Firebase
     const productosRef = ref(db, 'productos');
 
-    // Escuchar datos en tiempo real
     onValue(productosRef, (snapshot) => {
         const data = snapshot.val();
-        if (!data) return;
+        if (!data) {
+            contenedor.innerHTML = "<p>No hay productos disponibles por ahora.</p>";
+            return;
+        }
 
-        // Limpiar productos previos cargados dinámicamente para no duplicar
-        const cardsDinamicas = contenedor.querySelectorAll('.card-firebase');
-        cardsDinamicas.forEach(c => c.remove());
+        // Limpiamos solo los productos dinámicos para evitar duplicados
+        contenedor.innerHTML = "";
 
-        // Filtrar e inyectar
-        Object.values(data).filter(p => p.seccion === seccion).forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'card card-firebase';
-            card.innerHTML = `
-                <img src="${p.imagen}" onerror="this.src='https://placeholder.com'">
-                <p>${p.nombre.toUpperCase()}</p>
-                <p class="price">R$ ${p.precio}</p>
-                <button class="btn-add">ADICIONAR</button>
-            `;
-            contenedor.appendChild(card);
+        // Convertimos el objeto de Firebase en Array y filtramos por sección
+        Object.values(data).forEach(p => {
+            // Si la sección coincide o si estamos en 'inicio' (mostramos todo en inicio)
+            if (p.seccion === seccion || seccion === 'inicio') {
+                const card = document.createElement('div');
+                card.className = 'card card-firebase';
+                card.innerHTML = `
+                    <img src="${p.imagen}" onerror="this.src='https://via.placeholder.com/150'">
+                    <p>${p.nombre.toUpperCase()}</p>
+                    <p class="price">R$ ${p.precio}</p>
+                    <button class="btn-add">ADICIONAR</button>
+                `;
+                contenedor.appendChild(card);
+            }
         });
     });
 }
 
-// --- EVENTOS DE CLIC ---
+// --- 5. EVENTOS DE CLIC GLOBALES ---
 document.addEventListener('click', (e) => {
     const link = e.target.closest('.nav-link');
     if (link) {
@@ -92,29 +97,30 @@ document.addEventListener('click', (e) => {
         navigate(page);
     }
     
-    // Cerrar dropdown al hacer clic fuera
-    if (extraDropdown && !extraBtn.contains(e.target) && !extraDropdown.contains(e.target)) {
+    // Cerrar menú extra si se hace clic fuera
+    const extraDropdown = document.getElementById('extraDropdown');
+    const extraBtn = document.getElementById('extraBtn');
+    if (extraDropdown && extraBtn && !extraBtn.contains(e.target) && !extraDropdown.contains(e.target)) {
         extraDropdown.classList.remove('show');
     }
 });
 
-// --- MENÚ EXTRA (+) ---
-const extraBtn = document.getElementById('extraBtn');
-const extraDropdown = document.getElementById('extraDropdown');
+// --- 6. MENÚ EXTRA (+) ---
+document.addEventListener('click', (e) => {
+    const extraBtn = e.target.closest('#extraBtn');
+    if (extraBtn) {
+        const dropdown = document.getElementById('extraDropdown');
+        dropdown.classList.toggle('show');
+    }
+});
 
-if (extraBtn) {
-    extraBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        extraDropdown.classList.toggle('show');
-    });
-}
-
-// --- CARRUSEL INFINITO ---
+// --- 7. CARRUSEL INFINITO ---
 function initInfiniteCarousel() {
     const track = document.getElementById('carouselTrack');
     const slides = document.querySelectorAll('.slide-item');
     if (!track || slides.length === 0) return;
 
+    // Clonar el primero para el efecto infinito
     const firstClone = slides[0].cloneNode(true);
     track.appendChild(firstClone);
 
@@ -134,7 +140,7 @@ function initInfiniteCarousel() {
     }, 3500); 
 }
 
-// --- CARGA INICIAL ---
+// --- 8. CARGA INICIAL ---
 window.addEventListener('DOMContentLoaded', () => {
     const saved = localStorage.getItem('lastSection') || 'inicio';
     navigate(saved);

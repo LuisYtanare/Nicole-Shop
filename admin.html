@@ -8,47 +8,77 @@
   </head>
   <body>
     <div class="admin-container">
-      <header>
-        <h1>Registrador de Productos</h1>
-        <a href="index.html" class="btn-back">Ver Tienda</a>
-      </header>
-
-      <section class="form-section">
-        <form id="productForm">
+      <section id="login-section" class="form-section">
+        <h1>Acceso Administrador</h1>
+        <form id="loginForm">
           <input
-            type="text"
-            id="p-nombre"
-            placeholder="Nombre del producto"
-            required
-          />
-
-          <select id="p-seccion">
-            <option value="maquillaje">Maquillaje</option>
-            <option value="perfumes">Perfumes</option>
-            <option value="cremas">Cremas</option>
-          </select>
-
-          <input
-            type="number"
-            id="p-precio"
-            placeholder="Precio (R$)"
-            step="0.01"
+            type="email"
+            id="login-email"
+            placeholder="Correo electrónico"
             required
           />
           <input
-            type="text"
-            id="p-imagen"
-            placeholder="URL de la imagen (JPG/PNG)"
+            type="password"
+            id="login-pass"
+            placeholder="Contraseña"
             required
           />
-
-          <button type="submit" id="btn-save">REGISTRAR PRODUCTO</button>
+          <button type="submit">ENTRAR AL PANEL</button>
         </form>
       </section>
 
-      <section class="list-section">
-        <h2>Productos Registrados</h2>
-        <div id="admin-list" class="admin-grid"></div>
+      <section id="admin-content" style="display: none">
+        <header>
+          <h1>Registrador de Productos</h1>
+          <div style="display: flex; gap: 10px">
+            <button
+              id="btn-logout"
+              class="btn-back"
+              style="background-color: #ff4d4d"
+            >
+              Cerrar Sesión
+            </button>
+            <a href="index.html" class="btn-back">Ver Tienda</a>
+          </div>
+        </header>
+
+        <section class="form-section">
+          <form id="productForm">
+            <input
+              type="text"
+              id="p-nombre"
+              placeholder="Nombre del producto"
+              required
+            />
+
+            <select id="p-seccion">
+              <option value="maquillaje">Maquillaje</option>
+              <option value="perfumes">Perfumes</option>
+              <option value="cremas">Cremas</option>
+            </select>
+
+            <input
+              type="number"
+              id="p-precio"
+              placeholder="Precio (R$)"
+              step="0.01"
+              required
+            />
+            <input
+              type="text"
+              id="p-imagen"
+              placeholder="URL de la imagen (JPG/PNG)"
+              required
+            />
+
+            <button type="submit" id="btn-save">REGISTRAR PRODUCTO</button>
+          </form>
+        </section>
+
+        <section class="list-section">
+          <h2>Productos Registrados</h2>
+          <div id="admin-list" class="admin-grid"></div>
+        </section>
       </section>
     </div>
 
